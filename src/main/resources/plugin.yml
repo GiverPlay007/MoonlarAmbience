@@ -4,3 +4,7 @@ main: net.moonlar.ambience.MoonlarAmbience
 authors: [ GiverPlay ]
 description: Customize your server ambience
 website: https://moonlar.net
+commands:
+  ambience:
+    description: 'Main command'
+    aliases: [moonlarambience, amb]
