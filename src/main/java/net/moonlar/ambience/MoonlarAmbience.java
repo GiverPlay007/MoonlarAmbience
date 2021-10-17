@@ -5,13 +5,27 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MoonlarAmbience extends JavaPlugin {
 
+  private boolean weatherEnabled = true;
+
   @Override
   public void onEnable() {
-    getServer().getPluginManager().registerEvents(new WeatherListener(), this);
+    reload();
+    getServer().getPluginManager().registerEvents(new WeatherListener(this), this);
   }
 
   @Override
   public void onDisable() {
 
+  }
+
+  public void reload() {
+    saveDefaultConfig();
+    reloadConfig();
+
+    weatherEnabled = getConfig().getBoolean("Weather.ChangesEnabled");
+  }
+
+  public boolean isWeatherEnabled() {
+    return weatherEnabled;
   }
 }
