@@ -1,0 +1,6 @@
+name: MoonlarAmbience
+version: '${version}'
+main: net.moonlar.ambience.MoonlarAmbience
+authors: [ GiverPlay ]
+description: Customize your server ambience
+website: https://moonlar.net
