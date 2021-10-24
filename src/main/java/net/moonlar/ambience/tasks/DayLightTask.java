@@ -11,8 +11,7 @@ import java.util.TimeZone;
 public class DayLightTask implements Runnable {
 
   public static final short DAY_TICKS = 24000;
-  public static final short MIDNIGHT = 18000;
-  public static final byte PERIOD = 72;
+  public static final short MIDNIGHT = 18000;;
 
   private final MoonlarAmbience plugin;
   private final Server server;
@@ -46,16 +45,10 @@ public class DayLightTask implements Runnable {
     seconds += calendar.get(Calendar.MINUTE) * 60;
     seconds += calendar.get(Calendar.SECOND);
 
-    int elapsedTicks = seconds / (PERIOD / 20);
-
-    ticks = MIDNIGHT + elapsedTicks;
-
-    if(ticks >= DAY_TICKS) {
-      ticks -= DAY_TICKS;
-    }
+    ticks = MIDNIGHT + (int) (seconds / 3.6) - DAY_TICKS;
 
     server.getWorlds().forEach(world -> DayLightCycleHelper.setRule(world, false));
-    task = server.getScheduler().runTaskTimer(plugin, this, 0L, PERIOD);
+    task = server.getScheduler().runTaskTimer(plugin, this, 0L, 72);
   }
 
   public void end() {
