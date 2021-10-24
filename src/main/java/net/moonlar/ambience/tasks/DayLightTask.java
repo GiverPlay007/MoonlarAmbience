@@ -1,7 +1,7 @@
 package net.moonlar.ambience.tasks;
 
 import net.moonlar.ambience.MoonlarAmbience;
-import org.bukkit.GameRule;
+import net.moonlar.ambience.helpers.DayLightCycleHelper;
 import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -54,7 +54,7 @@ public class DayLightTask implements Runnable {
       ticks -= DAY_TICKS;
     }
 
-    server.getWorlds().forEach(w -> w.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false));
+    server.getWorlds().forEach(world -> DayLightCycleHelper.setRule(world, false));
     task = server.getScheduler().runTaskTimer(plugin, this, 0L, PERIOD);
   }
 
