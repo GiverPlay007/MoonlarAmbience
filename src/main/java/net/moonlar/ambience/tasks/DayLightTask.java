@@ -59,7 +59,7 @@ public class DayLightTask implements Runnable {
   }
 
   public void end() {
-    if(task != null && !task.isCancelled()) {
+    if(task != null) {
       task.cancel();
     }
 
