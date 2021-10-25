@@ -6,7 +6,6 @@ import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 public class DayLightTask implements Runnable {
 
@@ -39,7 +38,7 @@ public class DayLightTask implements Runnable {
   public void reset() {
     end();
 
-    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+    Calendar calendar = Calendar.getInstance(plugin.getDayLightTimeZone());
 
     int seconds = calendar.get(Calendar.HOUR_OF_DAY) * 3600;
     seconds += calendar.get(Calendar.MINUTE) * 60;

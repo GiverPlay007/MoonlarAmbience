@@ -7,9 +7,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.TimeZone;
+
 public final class MoonlarAmbience extends JavaPlugin {
 
   private boolean weatherEnabled = true;
+  private TimeZone timeZone;
   private DayLightTask task;
 
   @Override
@@ -32,15 +35,22 @@ public final class MoonlarAmbience extends JavaPlugin {
   }
 
   public void reload() {
+    task.end();
+
     saveDefaultConfig();
     reloadConfig();
 
     weatherEnabled = getConfig().getBoolean("Weather.ChangesEnabled");
+    timeZone = TimeZone.getTimeZone(getConfig().getString("DayLightCycle.TimeZone"));
     task.reset();
   }
 
   public boolean isWeatherEnabled() {
     return weatherEnabled;
+  }
+
+  public TimeZone getDayLightTimeZone() {
+    return timeZone;
   }
 
   public void sendVersion(CommandSender sender) {

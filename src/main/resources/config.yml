@@ -1,2 +1,4 @@
 Weather:
   ChangesEnabled: false
+DayLightCycle:
+  TimeZone: 'America/Sao_Paulo'
