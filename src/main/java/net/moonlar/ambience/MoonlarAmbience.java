@@ -13,6 +13,7 @@ import java.util.TimeZone;
 public final class MoonlarAmbience extends JavaPlugin {
 
   private boolean weatherEnabled = true;
+  private int resetPeriod;
 
   private TimeZone timeZone;
   private DayLightManager dayLightManager;
@@ -45,6 +46,7 @@ public final class MoonlarAmbience extends JavaPlugin {
 
     weatherEnabled = getConfig().getBoolean("Weather.ChangesEnabled");
     timeZone = TimeZone.getTimeZone(getConfig().getString("DayLightCycle.TimeZone"));
+    resetPeriod = getConfig().getInt("DayLightCycle.ResetPeriod") * 60000;
 
     try {
       behaviour = DayLightBehaviour.valueOf(getConfig().getString("DayLightCycle.Behaviour"));
@@ -67,6 +69,10 @@ public final class MoonlarAmbience extends JavaPlugin {
 
   public DayLightBehaviour getDayLightBehaviour() {
     return behaviour;
+  }
+
+  public int getResetPeriod() {
+    return resetPeriod;
   }
 
   public void sendVersion(CommandSender sender) {

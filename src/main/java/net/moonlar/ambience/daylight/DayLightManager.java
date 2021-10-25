@@ -17,6 +17,9 @@ public class DayLightManager implements Runnable {
 
   private BukkitTask task;
 
+  // Reduce instruction calls, increase clock overflow
+  private int resetPeriod;
+  private long lastReset;
   private int ticks;
 
   public DayLightManager(MoonlarAmbience plugin) {
@@ -30,6 +33,11 @@ public class DayLightManager implements Runnable {
 
     if(ticks >= DAY_TICKS) {
       ticks = 0;
+    }
+
+    if(System.currentTimeMillis() - lastReset > resetPeriod) {
+      reset();
+      return;
     }
 
     server.getWorlds().forEach(w -> w.setTime(ticks));
@@ -55,6 +63,8 @@ public class DayLightManager implements Runnable {
     seconds += calendar.get(Calendar.MINUTE) * 60;
     seconds += calendar.get(Calendar.SECOND);
 
+    resetPeriod = plugin.getResetPeriod();
+    lastReset = System.currentTimeMillis();
     ticks = MIDNIGHT + (int) (seconds / 3.6) - DAY_TICKS;
     task = server.getScheduler().runTaskTimer(plugin, this, 0L, 72);
   }

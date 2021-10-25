@@ -4,3 +4,4 @@ DayLightCycle:
   # NORMAL | DAY | NIGHT | REALTIME
   Behaviour: REALTIME
   TimeZone: 'America/Sao_Paulo'
+  ResetPeriod: 30
