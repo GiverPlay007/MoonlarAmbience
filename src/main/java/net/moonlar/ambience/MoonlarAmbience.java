@@ -2,6 +2,7 @@ package net.moonlar.ambience;
 
 import net.moonlar.ambience.commands.AmbienceCommand;
 import net.moonlar.ambience.listeners.WeatherListener;
+import net.moonlar.ambience.tasks.DayLightBehaviour;
 import net.moonlar.ambience.tasks.DayLightTask;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,10 @@ import java.util.TimeZone;
 public final class MoonlarAmbience extends JavaPlugin {
 
   private boolean weatherEnabled = true;
+
   private TimeZone timeZone;
   private DayLightTask task;
+  private DayLightBehaviour behaviour;
 
   @Override
   public void onEnable() {
@@ -42,6 +45,15 @@ public final class MoonlarAmbience extends JavaPlugin {
 
     weatherEnabled = getConfig().getBoolean("Weather.ChangesEnabled");
     timeZone = TimeZone.getTimeZone(getConfig().getString("DayLightCycle.TimeZone"));
+
+    try {
+      behaviour = DayLightBehaviour.valueOf(getConfig().getString("DayLightCycle.Behaviour"));
+    } catch (IllegalArgumentException e) {
+      behaviour = DayLightBehaviour.NORMAL;
+      getConfig().set("DayLightCycle.Behaviour", "NORMAL");
+      saveConfig();
+    }
+
     task.reset();
   }
 
@@ -51,6 +63,10 @@ public final class MoonlarAmbience extends JavaPlugin {
 
   public TimeZone getDayLightTimeZone() {
     return timeZone;
+  }
+
+  public DayLightBehaviour getDayLightBehaviour() {
+    return behaviour;
   }
 
   public void sendVersion(CommandSender sender) {

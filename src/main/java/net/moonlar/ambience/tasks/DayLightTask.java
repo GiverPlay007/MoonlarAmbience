@@ -3,6 +3,7 @@ package net.moonlar.ambience.tasks;
 import net.moonlar.ambience.MoonlarAmbience;
 import net.moonlar.ambience.helpers.DayLightCycleHelper;
 import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Calendar;
@@ -38,6 +39,17 @@ public class DayLightTask implements Runnable {
   public void reset() {
     end();
 
+    DayLightBehaviour behaviour = plugin.getDayLightBehaviour();
+
+    for (World world : server.getWorlds()) {
+      DayLightCycleHelper.setRule(world, behaviour != DayLightBehaviour.NORMAL);
+      world.setTime(behaviour.getTicks());
+    }
+
+    if(behaviour != DayLightBehaviour.REALTIME) {
+      return;
+    }
+
     Calendar calendar = Calendar.getInstance(plugin.getDayLightTimeZone());
 
     int seconds = calendar.get(Calendar.HOUR_OF_DAY) * 3600;
@@ -46,7 +58,6 @@ public class DayLightTask implements Runnable {
 
     ticks = MIDNIGHT + (int) (seconds / 3.6) - DAY_TICKS;
 
-    server.getWorlds().forEach(world -> DayLightCycleHelper.setRule(world, false));
     task = server.getScheduler().runTaskTimer(plugin, this, 0L, 72);
   }
 
