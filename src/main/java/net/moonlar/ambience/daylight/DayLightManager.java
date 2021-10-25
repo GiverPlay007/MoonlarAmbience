@@ -1,14 +1,13 @@
-package net.moonlar.ambience.tasks;
+package net.moonlar.ambience.daylight;
 
 import net.moonlar.ambience.MoonlarAmbience;
-import net.moonlar.ambience.helpers.DayLightCycleHelper;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Calendar;
 
-public class DayLightTask implements Runnable {
+public class DayLightManager implements Runnable {
 
   public static final short DAY_TICKS = 24000;
   public static final short MIDNIGHT = 18000;;
@@ -20,7 +19,7 @@ public class DayLightTask implements Runnable {
 
   private int ticks;
 
-  public DayLightTask(MoonlarAmbience plugin) {
+  public DayLightManager(MoonlarAmbience plugin) {
     this.plugin = plugin;
     this.server = plugin.getServer();
   }
@@ -57,7 +56,6 @@ public class DayLightTask implements Runnable {
     seconds += calendar.get(Calendar.SECOND);
 
     ticks = MIDNIGHT + (int) (seconds / 3.6) - DAY_TICKS;
-
     task = server.getScheduler().runTaskTimer(plugin, this, 0L, 72);
   }
 

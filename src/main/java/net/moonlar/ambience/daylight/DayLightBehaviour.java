@@ -1,4 +1,4 @@
-package net.moonlar.ambience.tasks;
+package net.moonlar.ambience.daylight;
 
 public enum DayLightBehaviour {
   NORMAL(12000),

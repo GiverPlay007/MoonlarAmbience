@@ -1,4 +1,4 @@
-package net.moonlar.ambience.helpers;
+package net.moonlar.ambience.daylight;
 
 import org.bukkit.GameRule;
 import org.bukkit.World;
