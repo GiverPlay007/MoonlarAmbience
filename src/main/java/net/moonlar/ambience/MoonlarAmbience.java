@@ -36,6 +36,7 @@ public final class MoonlarAmbience extends JavaPlugin {
     reloadConfig();
 
     weatherEnabled = getConfig().getBoolean("Weather.ChangesEnabled");
+    task.reset();
   }
 
   public boolean isWeatherEnabled() {
